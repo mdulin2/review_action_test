@@ -50,7 +50,7 @@ jobs:
           script: |
             const statusContext = 'Dependency Check'; // <<< Name of our status check
             const prHeadSha = context.payload.pull_request.head.sha;
-            const conclusion = steps.dep_check.outcome; // 'success' or 'failure'
+            const conclusion = 'failure'; // steps.dep_check.outcome; // 'success' or 'failure'
 
             let state;
             let description;
