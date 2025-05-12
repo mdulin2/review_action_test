@@ -1,32 +1,20 @@
-name: Step 3, Leave a review
+# .github/workflows/simple-review-test.yml
+# A minimal workflow to test the pull_request_review trigger.
 
-# This step triggers after the user leaves a pull request review.
-# This workflow updates from step 3 to step 4.
+name: Simple Review Trigger Test
 
-# This will run every time we leave a pull request review.
-# Reference: https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
 on:
-  workflow_dispatch:
   pull_request_review:
-    types:
-      - submitted
-
-# Reference: https://docs.github.com/en/actions/security-guides/automatic-token-authentication
-permissions:
-  # Need `contents: read` to checkout the repository.
-  # Need `contents: write` to update the step metadata.
-  contents: write
+    types: [submitted] # Trigger when a review is submitted (approved, commented, changes requested)
 
 jobs:
-
-  on_leave_review:
-    name: On leave review
-
-    # We'll run Ubuntu for performance instead of Mac or Windows.
+  log_event:
     runs-on: ubuntu-latest
-
     steps:
-
-      # In README.md, switch step 3 for step 4.
-      - name: Update to step 4
-        run: echo "please work!"
+      - name: Log that the workflow was triggered
+        run: |
+          echo "Workflow triggered by pull_request_review event!"
+          echo "Reviewer: ${{ github.actor }}"
+          echo "Review State: ${{ github.event.review.state }}"
+          echo "PR Number: ${{ github.event.pull_request.number }}"
+          echo "Commit SHA: ${{ github.event.pull_request.head.sha }}"
