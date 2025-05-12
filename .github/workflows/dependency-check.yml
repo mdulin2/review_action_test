@@ -1,4 +1,3 @@
-# .github/workflows/dependency-check.yml
 name: Dependency Change Check
 
 on:

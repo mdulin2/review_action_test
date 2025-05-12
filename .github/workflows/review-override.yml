@@ -1,4 +1,3 @@
-# .github/workflows/review-override.yml
 name: Dependency Review Override
 
 on:
