@@ -4,6 +4,7 @@ name: Dependency Review Override
 on:
   pull_request_review:
     types: [submitted] # Trigger when any review is submitted
+  workflow_dispatch: # Allow manual triggering
 
 permissions:
   statuses: write      # Needed to read and write commit statuses
