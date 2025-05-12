@@ -7,7 +7,7 @@ on:
 
 permissions:
   statuses: write # Needed to post commit statuses
-  content: read # Needed to read the file data
+  contents: read # Needed to read the file data
 
 jobs:
   check-deps:
