@@ -1,0 +1,32 @@
+name: Step 3, Leave a review
+
+# This step triggers after the user leaves a pull request review.
+# This workflow updates from step 3 to step 4.
+
+# This will run every time we leave a pull request review.
+# Reference: https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
+on:
+  workflow_dispatch:
+  pull_request_review:
+    types:
+      - submitted
+
+# Reference: https://docs.github.com/en/actions/security-guides/automatic-token-authentication
+permissions:
+  # Need `contents: read` to checkout the repository.
+  # Need `contents: write` to update the step metadata.
+  contents: write
+
+jobs:
+
+  on_leave_review:
+    name: On leave review
+
+    # We'll run Ubuntu for performance instead of Mac or Windows.
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # In README.md, switch step 3 for step 4.
+      - name: Update to step 4
+        run: echo "please work!"
