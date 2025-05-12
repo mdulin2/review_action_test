@@ -12,6 +12,11 @@ permissions:
 
 # Only run this job if the review state is 'approved'
 jobs:
+  huh: 
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Sanity check on this running... 
+        run: echo "This is a test run"
   override_status:
     runs-on: ubuntu-latest
     if: github.event.review.state == 'approved'
