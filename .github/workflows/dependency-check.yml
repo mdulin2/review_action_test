@@ -1,0 +1,80 @@
+# .github/workflows/dependency-check.yml
+name: Dependency Change Check
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  statuses: write # Needed to post commit statuses
+
+jobs:
+  check-deps:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        # Fetch depth 0 might be needed if your script compares against the base branch
+        with:
+          fetch-depth: 0
+
+      # Add steps here to setup your environment (e.g., setup Go, Node, Python)
+      # - name: Setup Go
+      #   uses: actions/setup-go@v5
+      #   with:
+      #     go-version: '1.21'
+
+      - name: Run Dependency Check Script
+        id: dep_check
+        # Replace this with the actual command to run your dependency check script
+        # The script MUST exit with 0 if NO changes are detected
+        # And exit with a non-zero code (e.g., 1) if changes ARE detected.
+        run: |
+          echo "Running dependency check script..."
+          # Example: Replace with your actual script execution
+          # ./scripts/check-dependencies.sh
+          # For demonstration, let's simulate finding changes based on a condition
+          # In a real scenario, your script's exit code determines this.
+
+          # TODO - Add capslock script here later. 
+          
+          exit 1 # Exit with non-zero code if changes found
+        # Continue even if the script fails (exits non-zero) so we can post the status
+        continue-on-error: true
+
+      - name: Report Status Based on Script Outcome
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const statusContext = 'Dependency Check'; // <<< Name of our status check
+            const prHeadSha = context.payload.pull_request.head.sha;
+            const conclusion = steps.dep_check.outcome; // 'success' or 'failure'
+
+            let state;
+            let description;
+
+            if (conclusion === 'success') {
+              state = 'success';
+              description = 'No dependency changes detected.';
+              console.log('Dependency script succeeded (no changes found).');
+            } else {
+              state = 'failure'; // Set to failure if changes were detected
+              description = 'Dependency changes detected! Requires review by @required-user.'; // <<< Update user handle
+              console.log('Dependency script failed (changes found). Posting failure status.');
+            }
+
+            await github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: prHeadSha,
+              state: state,
+              context: statusContext,
+              description: description
+            });
+            console.log(`Posted status '${state}' for context '${statusContext}'`);
+
+            // If the script failed (changes detected), ensure the overall job fails
+            if (conclusion === 'failure') {
+               core.setFailed(`Dependency changes detected. Status check '${statusContext}' set to failure.`);
+            }

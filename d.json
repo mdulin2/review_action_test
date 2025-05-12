@@ -1,0 +1,231 @@
+{
+	"capabilityInfo":  [
+		{
+			"packageName":  "main",
+			"capability":  "CAPABILITY_READ_SYSTEM_STATE",
+			"depPath":  "capslock_action.main rsc.io/quote.Hello rsc.io/sampler.Hello rsc.io/sampler.DefaultUserPrefs os.Getenv",
+			"path":  [
+				{
+					"name":  "capslock_action.main",
+					"package":  "capslock_action"
+				},
+				{
+					"name":  "rsc.io/quote.Hello",
+					"site":  {
+						"filename":  "main.go",
+						"line":  "9",
+						"column":  "28"
+					},
+					"package":  "rsc.io/quote"
+				},
+				{
+					"name":  "rsc.io/sampler.Hello",
+					"site":  {
+						"filename":  "quote.go",
+						"line":  "12",
+						"column":  "22"
+					},
+					"package":  "rsc.io/sampler"
+				},
+				{
+					"name":  "rsc.io/sampler.DefaultUserPrefs",
+					"site":  {
+						"filename":  "sampler.go",
+						"line":  "32",
+						"column":  "27"
+					},
+					"package":  "rsc.io/sampler"
+				},
+				{
+					"name":  "os.Getenv",
+					"site":  {
+						"filename":  "sampler.go",
+						"line":  "21",
+						"column":  "22"
+					},
+					"package":  "os"
+				}
+			],
+			"packageDir":  "capslock_action",
+			"capabilityType":  "CAPABILITY_TYPE_TRANSITIVE"
+		},
+		{
+			"packageName":  "main",
+			"capability":  "CAPABILITY_UNANALYZED",
+			"depPath":  "capslock_action.init rsc.io/quote.init rsc.io/sampler.init golang.org/x/text/language.init golang.org/x/text/language.init#1 (golang.org/x/text/language.Tag).canonicalize golang.org/x/text/language.normLang sort.Search",
+			"path":  [
+				{
+					"name":  "capslock_action.init",
+					"package":  "capslock_action"
+				},
+				{
+					"name":  "rsc.io/quote.init",
+					"package":  "rsc.io/quote"
+				},
+				{
+					"name":  "rsc.io/sampler.init",
+					"package":  "rsc.io/sampler"
+				},
+				{
+					"name":  "golang.org/x/text/language.init",
+					"package":  "golang.org/x/text/language"
+				},
+				{
+					"name":  "golang.org/x/text/language.init#1",
+					"package":  "golang.org/x/text/language"
+				},
+				{
+					"name":  "(golang.org/x/text/language.Tag).canonicalize",
+					"site":  {
+						"filename":  "match.go",
+						"line":  "919",
+						"column":  "31"
+					},
+					"package":  "golang.org/x/text/language"
+				},
+				{
+					"name":  "golang.org/x/text/language.normLang",
+					"site":  {
+						"filename":  "language.go",
+						"line":  "154",
+						"column":  "31"
+					},
+					"package":  "golang.org/x/text/language"
+				},
+				{
+					"name":  "sort.Search",
+					"site":  {
+						"filename":  "lookup.go",
+						"line":  "48",
+						"column":  "18"
+					},
+					"package":  "sort"
+				}
+			],
+			"packageDir":  "capslock_action",
+			"capabilityType":  "CAPABILITY_TYPE_TRANSITIVE"
+		},
+		{
+			"packageName":  "main",
+			"capability":  "CAPABILITY_UNANALYZED",
+			"depPath":  "capslock_action.main rsc.io/quote.Hello rsc.io/sampler.Hello (*rsc.io/sampler.text).find (*golang.org/x/text/language.matcher).Match (*golang.org/x/text/language.matcher).getBest (golang.org/x/text/language.Tag).canonicalize golang.org/x/text/language.normLang sort.Search",
+			"path":  [
+				{
+					"name":  "capslock_action.main",
+					"package":  "capslock_action"
+				},
+				{
+					"name":  "rsc.io/quote.Hello",
+					"site":  {
+						"filename":  "main.go",
+						"line":  "9",
+						"column":  "28"
+					},
+					"package":  "rsc.io/quote"
+				},
+				{
+					"name":  "rsc.io/sampler.Hello",
+					"site":  {
+						"filename":  "quote.go",
+						"line":  "12",
+						"column":  "22"
+					},
+					"package":  "rsc.io/sampler"
+				},
+				{
+					"name":  "(*rsc.io/sampler.text).find",
+					"site":  {
+						"filename":  "sampler.go",
+						"line":  "34",
+						"column":  "19"
+					},
+					"package":  "rsc.io/sampler"
+				},
+				{
+					"name":  "(*golang.org/x/text/language.matcher).Match",
+					"site":  {
+						"filename":  "sampler.go",
+						"line":  "77",
+						"column":  "30"
+					},
+					"package":  "golang.org/x/text/language"
+				},
+				{
+					"name":  "(*golang.org/x/text/language.matcher).getBest",
+					"site":  {
+						"filename":  "match.go",
+						"line":  "77",
+						"column":  "26"
+					},
+					"package":  "golang.org/x/text/language"
+				},
+				{
+					"name":  "(golang.org/x/text/language.Tag).canonicalize",
+					"site":  {
+						"filename":  "match.go",
+						"line":  "649",
+						"column":  "27"
+					},
+					"package":  "golang.org/x/text/language"
+				},
+				{
+					"name":  "golang.org/x/text/language.normLang",
+					"site":  {
+						"filename":  "language.go",
+						"line":  "154",
+						"column":  "31"
+					},
+					"package":  "golang.org/x/text/language"
+				},
+				{
+					"name":  "sort.Search",
+					"site":  {
+						"filename":  "lookup.go",
+						"line":  "48",
+						"column":  "18"
+					},
+					"package":  "sort"
+				}
+			],
+			"packageDir":  "capslock_action",
+			"capabilityType":  "CAPABILITY_TYPE_TRANSITIVE"
+		}
+	],
+	"moduleInfo":  [
+		{
+			"path":  "golang.org/x/text",
+			"version":  "v0.0.0-20170915032832-14c0d48ead0c"
+		},
+		{
+			"path":  "rsc.io/quote",
+			"version":  "v1.5.2"
+		},
+		{
+			"path":  "rsc.io/sampler",
+			"version":  "v1.3.0"
+		}
+	],
+	"packageInfo":  [
+		{
+			"path":  "capslock_action"
+		},
+		{
+			"path":  "golang.org/x/text/internal/tag"
+		},
+		{
+			"path":  "golang.org/x/text/language",
+			"ignoredFiles":  [
+				"gen.go",
+				"gen_common.go",
+				"gen_index.go",
+				"go1_1.go"
+			]
+		},
+		{
+			"path":  "rsc.io/quote"
+		},
+		{
+			"path":  "rsc.io/sampler"
+		}
+	]
+}

@@ -1,0 +1,85 @@
+# .github/workflows/review-override.yml
+name: Dependency Review Override
+
+on:
+  pull_request_review:
+    types: [submitted] # Trigger when any review is submitted
+
+permissions:
+  statuses: write      # Needed to read and write commit statuses
+  pull-requests: read  # Needed to get PR details
+
+# Only run this job if the review state is 'approved'
+jobs:
+  override_status:
+    runs-on: ubuntu-latest
+    if: github.event.review.state == 'approved'
+    steps:
+      - name: Check if Reviewer is the Required One
+        id: check_reviewer
+        run: |
+          # --- Configuration: Set the required reviewer's GitHub username ---
+          REQUIRED_REVIEWER="mdulin2" # <<< CHANGE THIS to the specific required username
+          # --- End Configuration ---
+
+          ACTOR="${{ github.actor }}"
+          echo "Review submitted by: ${ACTOR}"
+          echo "Required reviewer: ${REQUIRED_REVIEWER}"
+          if [[ "$ACTOR" == "$REQUIRED_REVIEWER" ]]; then
+            echo "Reviewer IS the required one."
+            echo "is_required=true" >> $GITHUB_OUTPUT
+          else
+            echo "Reviewer is NOT the required one."
+            echo "is_required=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Override Failure Status if Applicable
+        # Only run if the reviewer was the required one
+        if: steps.check_reviewer.outputs.is_required == 'true'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const statusContext = 'Dependency Check'; // <<< Must match the context from Workflow 1
+            const requiredReviewer = "${{ steps.check_reviewer.outputs.REQUIRED_REVIEWER }}"; // Get from previous step's output if needed, or hardcode
+            const prHeadSha = context.payload.pull_request.head.sha;
+            console.log(`Required reviewer (${requiredReviewer}) approved. Checking status '${statusContext}' on commit ${prHeadSha}.`);
+
+            try {
+              // Get the current statuses for the commit
+              const { data: statuses } = await github.rest.repos.listCommitStatusesForRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: prHeadSha
+              });
+
+              // Find the specific status check we care about
+              const depCheckStatus = statuses.find(s => s.context === statusContext);
+
+              if (depCheckStatus && depCheckStatus.state === 'failure') {
+                console.log(`Found '${statusContext}' in failure state. Overriding to success.`);
+                // Re-post the status, changing state to success
+                await github.rest.repos.createCommitStatus({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  sha: prHeadSha,
+                  state: 'success', // Override state
+                  context: statusContext,
+                  description: `Dependency changes approved by required reviewer @${context.actor.login}.` // Update description
+                });
+                console.log(`Successfully updated status '${statusContext}' to success.`);
+              } else if (depCheckStatus) {
+                console.log(`Status '${statusContext}' is already '${depCheckStatus.state}'. No action needed.`);
+              } else {
+                console.log(`Status '${statusContext}' not found for this commit. No action needed.`);
+              }
+            } catch (error) {
+               console.error("Error checking or updating commit status:", error);
+               core.setFailed("Failed to check or update commit status.");
+            }
+
+      - name: Log if Not Required Reviewer
+        if: steps.check_reviewer.outputs.is_required == 'false'
+        run: |
+          echo "Approval was not from the required reviewer. No status override performed."
+
