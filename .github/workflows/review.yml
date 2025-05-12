@@ -1,0 +1,20 @@
+# .github/workflows/simple-review-test.yml
+# A minimal workflow to test the pull_request_review trigger.
+
+name: Simple Review Trigger Test
+
+on:
+  pull_request_review:
+    types: [submitted] # Trigger when a review is submitted (approved, commented, changes requested)
+
+jobs:
+  log_event:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log that the workflow was triggered
+        run: |
+          echo "Workflow triggered by pull_request_review event!"
+          echo "Reviewer: ${{ github.actor }}"
+          echo "Review State: ${{ github.event.review.state }}"
+          echo "PR Number: ${{ github.event.pull_request.number }}"
+          echo "Commit SHA: ${{ github.event.pull_request.head.sha }}"
