@@ -2,7 +2,7 @@
 name: Dependency Review Override
 
 on:
-  pull_request_review_target:
+  pull_request_review:
     types: [submitted] # Trigger when any review is submitted
 
 permissions:

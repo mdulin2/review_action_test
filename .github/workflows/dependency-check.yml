@@ -61,7 +61,7 @@ jobs:
               console.log('Dependency script succeeded (no changes found).');
             } else {
               state = 'failure'; // Set to failure if changes were detected
-              description = 'Dependency changes detected! Requires review by @required-user.'; // <<< Update user handle
+              description = 'Dependency changes detected! Requires review by @mdulin2.'; // <<< Update user handle
               console.log('Dependency script failed (changes found). Posting failure status.');
             }
 
