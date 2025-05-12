@@ -2,11 +2,12 @@
 name: Dependency Change Check
 
 on:
-  pull_request:
+  pull_request_target:
     types: [opened, synchronize, reopened]
 
 permissions:
   statuses: write # Needed to post commit statuses
+  content: read # Needed to read the file data
 
 jobs:
   check-deps:
@@ -37,7 +38,7 @@ jobs:
           # In a real scenario, your script's exit code determines this.
 
           # TODO - Add capslock script here later. 
-          
+
           exit 1 # Exit with non-zero code if changes found
         # Continue even if the script fails (exits non-zero) so we can post the status
         continue-on-error: true
