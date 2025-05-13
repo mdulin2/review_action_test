@@ -1,14 +1,17 @@
 # .github/workflows/simple-review-test.yml
 # A minimal workflow to test the pull_request_review trigger.
 
-name: Simple Review Trigger Test
+name: Trigger on Comment
 
 on:
-  pull_request_review:
-    types: [submitted] # Trigger when a review is submitted (approved, commented, changes requested)
+  issue_comment:
+    types: [created] # Trigger when a review is submitted (approved, commented, changes requested)
 
 jobs:
-  log_event:
+  approve_via_comment:
+    permissions:
+      statuses: write
+      pull-requests: read 
     runs-on: ubuntu-latest
     steps:
       - name: Log that the workflow was triggered
