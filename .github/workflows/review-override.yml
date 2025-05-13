@@ -57,7 +57,8 @@ jobs:
                 repo: context.repo.repo,
                 ref: prHeadSha
               });
-
+              console.log(data);
+              
               // Find the specific status check we care about
               const depCheckStatus = statuses.find(s => s.context === statusContext);
 
