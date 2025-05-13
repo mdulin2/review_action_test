@@ -7,11 +7,12 @@ on:
   issue_comment:
     types: [created] # Trigger when a review is submitted (approved, commented, changes requested)
 
+permissions:
+  statuses: write
+  pull-requests: read 
 jobs:
   approve_via_comment:
-    permissions:
-      statuses: write
-      pull-requests: read 
+
     runs-on: ubuntu-latest
     steps:
       - name: Log that the workflow was triggered
