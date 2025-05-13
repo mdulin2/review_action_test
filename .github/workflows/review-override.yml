@@ -8,6 +8,7 @@ on:
 # permissions:
 #   statuses: write      # Needed to read and write commit statuses
 #   pull-requests: read  # Needed to get PR details
+permissions: write-all
 
 # Only run this job if the review state is 'approved'
 jobs:
