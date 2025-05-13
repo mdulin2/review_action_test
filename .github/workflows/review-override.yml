@@ -70,7 +70,7 @@ jobs:
                   repo: context.repo.repo,
                   sha: prHeadSha,
                   state: 'success', // Override state
-                  context: statusContext,
+                  context: "Dependency Check",
                   description: `Dependency changes approved by required reviewer @${context.actor.login}.` // Update description
                 });
                 console.log(`Successfully updated status '${statusContext}' to success.`);
